@@ -10,3 +10,8 @@ __pycache__/
 Database/chat.db
 Database/chat.db-shm
 Database/chat.db-wal
+
+# PyInstaller
+build/
+dist/
+*.spec
