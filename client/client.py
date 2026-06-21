@@ -5,8 +5,14 @@ import tkinter as tk
 from tkinter import messagebox
 from datetime import datetime
 import os
+import sys
+if getattr(sys, 'frozen', False):
+    # Nếu chạy bằng file .exe đã đóng gói
+    BASE_DIR = sys._MEIPASS
+else:
+    # Nếu chạy bằng file .py bình thường
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DLL_PATH = os.path.join(BASE_DIR, "client_core.dll")
 
 try:
