@@ -1,0 +1,12 @@
+# C++ / Windows Build
+*.exe
+*.o
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Database (Không push lịch sử chat thực tế lên mạng)
+Database/chat.db
+Database/chat.db-shm
+Database/chat.db-wal

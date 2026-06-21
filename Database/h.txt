@@ -1,0 +1,12 @@
+cd 
+cd ..`
+g++ server.cpp -o server -lws2_32
+g++ -shared -o client_core.dll client_core.cpp -lws2_32
+
+g++ server.cpp sqlite3.o -o server.exe -lws2_32
+.\server
+
+python client/client.py
+python server/admin.py
+
+
