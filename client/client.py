@@ -6,13 +6,7 @@ from tkinter import messagebox
 from datetime import datetime
 import os
 import sys
-if getattr(sys, 'frozen', False):
-    # Nếu chạy bằng file .exe đã đóng gói
-    BASE_DIR = sys._MEIPASS
-else:
-    # Nếu chạy bằng file .py bình thường
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DLL_PATH = os.path.join(BASE_DIR, "client_core.dll")
 
 try:
@@ -26,12 +20,12 @@ except OSError:
 class ChatApp:
     def __init__(self):
         self.bad_words = [] 
-        self.server_ip = b"192.168.56.1" 
+        self.server_ip = b"192.168.1.11" 
         self.server_port = 9999
         self.connected = False
         
         self.root = tk.Tk()
-        self.root.title("HUST Chat - Đăng nhập")
+        self.root.title("SOCKET Chat - Đăng nhập")
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.setup_login_ui()
         self.root.mainloop()

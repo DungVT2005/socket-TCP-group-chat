@@ -180,7 +180,7 @@ private:
                     }
                     auto end_time = chrono::high_resolution_clock::now();
                     auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-                    cout << "[METRIC] Thoi gian luu DB: " << duration << " micro-giay (" << duration/1000.0 << " ms)\n";
+                    cout << "[METRIC] Thoi gian luu DB: " << duration/1000.0 << " ms\n";
                     lock_guard<mutex> lock(clients_mutex);
                     for (auto c : clients) {
                         if (c->isAuthenticated && c != client) {
