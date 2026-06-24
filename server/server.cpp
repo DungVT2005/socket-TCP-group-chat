@@ -10,7 +10,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
-#include "sqlite3.h" // Thư viện DB
+#include "sqlite3.h" 
 
 using namespace std;
 #pragma comment(lib, "ws2_32.lib")
@@ -189,6 +189,28 @@ private:
                     }
                     string ack = "ACK\n";
                     send(client->socket, ack.c_str(), ack.length(), 0);
+                }
+            // --- XỬ LÝ LẤY DANH SÁCH THÀNH VIÊN NHÓM ---
+            else if (data == "LIST" && client->isAuthenticated) {
+                string result = "LIST|";
+                {
+                    lock_guard<mutex> lock(db_mutex);
+                    string query = "SELECT username, is_online FROM users WHERE status=1";
+                        sqlite3_stmt* stmt;
+                        if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, 0) == SQLITE_OK) {
+                            bool first = true;
+                            while (sqlite3_step(stmt) == SQLITE_ROW) {
+                                string uname = (const char*)sqlite3_column_text(stmt, 0);
+                                int online = sqlite3_column_int(stmt, 1);
+                                if (!first) result += ",";
+                                result += uname + ":" + to_string(online);
+                                first = false;
+                            }
+                            sqlite3_finalize(stmt);
+                        }
+                    }
+                    result += "\n";
+                    send(client->socket, result.c_str(), result.length(), 0);
                 }
             }
         }
